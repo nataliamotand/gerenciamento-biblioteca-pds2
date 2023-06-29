@@ -127,3 +127,12 @@ Responsabilidades:
 Colaboradores:
 - Livro
 - Administrador
+
+# Como compilar e executar o programa
+## Para compilar
+- Digitar o comando `make` no terminal
+## Para executar
+- Digitar `./trabalho` no terminal
+
+## Para exclusão dos arquivos objeto e executável
+- Digitar o comando `make clean` no terminal
