@@ -1,39 +1,36 @@
+
+
 #ifndef USUARIO_HPP
 #define USUARIO_HPP
 
-#include "Livro.hpp"
+#include "Pessoa.hpp"
+#include "Emprestimo.hpp"
 
 #include <string>
 #include <vector>
 
-class Usuario {
+class Usuario : public Pessoa {
     private:
-        std::string nome;
-        std::string email;
-        std::string senha;
         std::string curso;
         std::string idEstudantil;
-        std::vector<Livro> livros;
         int diasAtraso;
         float multa;
         std::string linkPagamento;
+
+        Emprestimo emprestimo = Emprestimo();
 
     public:
         Usuario(std::string nome, std::string email, std::string senha,
                 std::string curso, std::string idEstudantil);
 
-        std::string getNome();
         std::string getCurso();
         std::string getIdEstudantil();
-        std::vector<Livro> getLivros();
         int getDiasAtraso();
         float getMulta();
         std::string getLinkPagamento();
 
-        void setNome(std::string nome);
         void setCurso(std::string curso);
         void setIdEstudantil(std::string idEstudantil);
-        void setLivros(std::vector<Livro> livros);
         void setDiasAtraso(int diasAtraso);
         void setMulta(float multa);
         void setLinkPagamento(std::string linkPagamento);
@@ -42,6 +39,9 @@ class Usuario {
         void removerLivro(Livro livro);
         void calcularMulta();
         void gerarLinkPagamento();
+
+        void pegarLivroEmprestado(Livro livro, Data dataEmprestimo);
+        std::vector<std::map<Livro, std::map<Data, Data>>> getLivrosEmprestados();
 };
 
 #endif
