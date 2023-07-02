@@ -29,3 +29,24 @@ void Pessoa::setEmail(std::string email) {
 void Pessoa::setSenha(std::string senha) {
     this->senha = senha;
 }
+
+bool Pessoa::verificarEmail(std::string email) {
+    if (this->getEmail() == email) {
+        return true;
+    }
+    return false;
+}
+
+bool Pessoa::verificarSenha(std::string senha) {
+    if (this->getSenha() == senha) {
+        return true;
+    }
+    return false;
+}
+
+bool Pessoa::login(std::string email, std::string senha) {
+    if (this->verificarEmail(email) == true && this->verificarSenha(senha) == true) {
+        return true;
+    }
+    return false;
+}
