@@ -6,29 +6,31 @@ int main() {
     int escolha;
 
     do {
-        std::cout << "1 - Logar admnistrador" << std::endl;
-        std::cout << "2 - Cadastrar usuario" << std::endl;
+        std::cout << "1 - Logar administrador" << std::endl;
+        std::cout << "2 - Logar usuario" << std::endl;
         std::cout << "3 - Sair" << std::endl;
         std::cout << "Escolha: ";
         std::cin >> escolha;
 
         switch (escolha) {
-            case 1:
-                std::cout << "Logar admnistrador" << std::endl;
-                loginAdministrador();
+            case 1:{
+                interfaceAdministrador();
                 break;
-            case 2:
-                std::cout << "Cadastrar usuario" << std::endl;
-                cadastrarUsuario();
+            }
+            case 2: {
+                interfaceUsuario();
                 break;
-            case 3:
-                std::cout << "Sair" << std::endl;
+            }
+            case 3:{
+                std::cout << "Encerrando sistema da biblioteca" << std::endl;
                 break;
-            default:
+            }
+            default:{
                 std::cout << "Opcao invalida" << std::endl;
                 break;
+            }
         }
-    } while (true);
+    } while (escolha != 3);
     
     return 0;
 }
