@@ -1,3 +1,5 @@
+
+
 #ifndef PESSOA_HPP
 #define PESSOA_HPP
 
@@ -22,6 +24,9 @@ class Pessoa {
 
         bool login(std::string email, std::string senha);
         bool logout();
+
+        bool verificarEmail(std::string email);
+        bool verificarSenha(std::string senha);
 };
 
 #endif
