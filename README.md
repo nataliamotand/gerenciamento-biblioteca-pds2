@@ -133,6 +133,14 @@ Colaboradores:
 - Digitar o comando `make` no terminal
 ## Para executar
 - Digitar `./trabalho` no terminal
+## Para executar os testes
+- Digitar `./testesUnitarios` no terminal. Na execução, é possível ver o resultado para todos testes unitários
+## Para gerar o relatório de cobertura e visualizar o resultado
+> Você tem que ter instalado o `gcovr` no seu computador
+- Digitar o comando `make coverage -B` no terminal.
+    - O `-B` é para forçar um novo build toda vez que o comando é executado
+- Digitar o comando `gcovr -r . --html --html-details -o coverage/coverage.html` no terminal
+- Abrir o arquivo `coverage.html` na pasta `coverage/` para visualizar o resultado no navegador
 
-## Para exclusão dos arquivos objeto e executável
+## Para exclusão dos arquivos objeto, executável e relatório de cobertura
 - Digitar o comando `make clean` no terminal
