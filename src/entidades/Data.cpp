@@ -12,7 +12,10 @@ Data Data::getData() const{
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const Data& data) {}
+std::ostream& operator<<(std::ostream& os, const Data& data) {
+    os << data.getData();
+    return os;
+}
 
 int Data::getDia() {
     return this->dia;
@@ -38,6 +41,12 @@ void Data::setAno(int ano) {
     this->ano = ano;
 }
 
-void Data::imprimeData() {}
+void Data::imprimeData() {
+    std::cout << this->dia << "/" << this->mes << "/" << this->ano << std::endl;
+}
 
-Data Data::adicionarDias(Data dataInicial, int dias){}
+Data Data::adicionarDias(Data dataInicial, int dias){
+    Data data = dataInicial;
+    data.setDia(data.getDia() + dias);
+    return data;
+}
