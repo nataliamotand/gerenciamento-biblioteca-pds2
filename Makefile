@@ -78,8 +78,14 @@ testeUsuario: testeUsuario.o
 testeUsuario.o: testes/testeUsuario.cpp
 	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c testes/testeUsuario.cpp -o build/testeUsuario.o
 
-testesUnitarios: testeAdministrador.o pessoa.o administrador.o testeUsuario.o usuario.o
-	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -o testesUnitarios build/testeAdministrador.o build/pessoa.o build/administrador.o build/testeUsuario.o build/usuario.o
+testeCatalogoLivros: testeCatalogoLivros.o
+	$(CC) $(CFLAGS) -o testeCatalogoLivros build/testeCatalogoLivros.o
+
+testeCatalogoLivros.o: testes/testeCatalogoLivros.cpp
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c testes/testeCatalogoLivros.cpp -o build/testeCatalogoLivros.o
+
+testesUnitarios: testeAdministrador.o pessoa.o administrador.o testeUsuario.o usuario.o testeCatalogoLivros.o catalogo.o livro.o
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -o testesUnitarios build/testeAdministrador.o build/pessoa.o build/administrador.o build/testeUsuario.o build/usuario.o build/testeCatalogoLivros.o build/catalogo.o build/livro.o
 
 
 # Run coverage
