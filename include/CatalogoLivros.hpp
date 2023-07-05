@@ -3,8 +3,6 @@
 
 #include "Livro.hpp"
 
-#include <string>
-#include <vector>
 #include <iostream>
 
 class CatalogoLivros {
@@ -19,7 +17,7 @@ class CatalogoLivros {
         std::vector<std::string> getGeneros();
         void adicionarGenero(std::string genero);
         void removerGenero(std::string genero);
-        void editarGenero(std::string genero);
+        void editarGenero(std::string genero, std::string novoGenero);
 
         void setLivros(std::vector<Livro> livros);
         void setGeneros(std::vector<std::string> generos);
