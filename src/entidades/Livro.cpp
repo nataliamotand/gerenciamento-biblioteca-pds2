@@ -24,8 +24,12 @@ Livro::Livro(std::string titulo, std::string genero, std::string autor,
     this->endereco = endereco;
 }
 
-std::string Livro::getTitulo() {
+std::string Livro::getTitulo() const{
     return this->titulo;
+}
+
+bool Livro::operator<(const Livro& other) const {
+    return this->titulo < other.titulo;
 }
 
 std::string Livro::getGenero() {
