@@ -1,5 +1,16 @@
 #include "Livro.hpp"
 
+Livro::Livro() {
+    this->titulo = "";
+    this->genero = "";
+    this->autor = "";
+    this->numCopias = 0;
+    this->disponibilidade = false;
+    this->defeito = "";
+    this->codigo = "";
+    this->endereco = "";
+}
+
 Livro::Livro(std::string titulo, std::string genero, std::string autor,
     int numCopias, bool disponibilidade, std::string defeito,
     std::string codigo, std::string endereco) {
