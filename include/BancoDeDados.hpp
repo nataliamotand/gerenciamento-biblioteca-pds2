@@ -3,6 +3,7 @@
 
 #include "Usuario.hpp"
 #include "Administrador.hpp"
+#include "CatalogoLivros.hpp"
 
 #include <vector>
 #include <string>
@@ -28,7 +29,8 @@ class BancoDeDados {
         void imprimeTodosUsuarios();
 
         bool loginAdministrador(std::string email, std::string senha);
-
+        bool loginUsuario(std::string email, std::string senha);
+        Livro pesquisarLivro(std::string titulo);
 
         ~BancoDeDados();
 };
