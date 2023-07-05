@@ -1,6 +1,8 @@
 #ifndef LIVRO_HPP
 #define LIVRO_HPP
 
+#include "Data.hpp"
+
 #include <string>
 #include <vector>
 
@@ -21,7 +23,8 @@ class Livro {
             int numCopias, bool disponibilidade, std::string defeito,
             std::string codigo, std::string endereco);
 
-        std::string getTitulo();
+        std::string getTitulo() const;
+        bool operator<(const Livro& other) const;
         std::string getGenero();
         std::string getAutor();
         int getNumCopias();
