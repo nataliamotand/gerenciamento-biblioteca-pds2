@@ -16,6 +16,7 @@ class Livro {
         std::string endereco;
 
     public:
+        Livro();
         Livro(std::string titulo, std::string genero, std::string autor,
             int numCopias, bool disponibilidade, std::string defeito,
             std::string codigo, std::string endereco);
