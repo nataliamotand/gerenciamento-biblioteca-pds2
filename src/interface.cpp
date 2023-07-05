@@ -45,6 +45,7 @@ void AdministradorGerenciarUsuarios(){
             case 2:{
                 std::string nome, email, senha, curso, idEstudantil;
                 std::cout << "Digite o nome: ";
+                std::cin.ignore();
                 std::getline(std::cin, nome);
                 std::cout << "Digite o email: ";
                 std::cin >> email;
@@ -65,6 +66,7 @@ void AdministradorGerenciarUsuarios(){
             case 3:{
                 std::string nome, email, senha, curso, idEstudantil;
                 std::cout << "Confirme os dados do usuario a ser editado" << std::endl;
+                std::cin.ignore();
                 std::cout << "Digite o nome: ";
                 std::getline(std::cin, nome);
                 std::cout << "Digite o email: ";
@@ -105,6 +107,89 @@ void AdministradorGerenciarUsuarios(){
 }
 
 
+void AdministradorGerenciarLivros(){
+    int escolha;
+    do{
+        std::cout << "1 - Ver todos livros cadastrados" << std::endl;
+        std::cout << "2 - Adicionar livro no sistema" << std::endl;
+        std::cout << "3 - Editar livro no sistema" << std::endl;
+        std::cout << "4 - Excluir livro no sistema" << std::endl;
+        std::cout << "5 - Sair" << std::endl;
+        std::cin >> escolha;
+        switch (escolha){
+            case 1:
+                bancoDeDados.imprimeTodosLivros();
+                break;
+            case 2:{
+                std::string titulo, genero, autor;
+                int numCopias;
+                std::cout << "Digite o título: ";
+                std::cin.ignore();
+                std::getline(std::cin, titulo);
+                std::cout << "Digite o gênero: ";
+                std::getline(std::cin, genero);
+                std::cout << "Digite o autor: ";
+                std::getline(std::cin, autor);
+                std::cout << "Digite o número de cópias: ";
+                std::cin >> numCopias;
+                bool retorno = bancoDeDados.adicionarLivro(titulo, genero, autor, numCopias);
+                if(retorno == false){
+                    std::cout << "Livro já estava cadastrado" << std::endl;
+                }else{
+                    std::cout << "Livro cadastrado com sucesso" << std::endl;
+                }
+                break;
+            }  
+            case 3:{
+                std::string titulo, genero, autor, defeito, endereco;
+                int numCopias;
+                std::cout << "Confirme os dados do livro a ser editado" << std::endl;
+                std::cout << "Digite o título: ";
+                std::cin.ignore();
+                std::getline(std::cin, titulo);
+                std::cout << "Digite o gênero: ";
+                std::getline(std::cin, genero);
+                std::cout << "Digite o autor: ";
+                std::getline(std::cin, autor);
+                std::cout << "Digite o número de cópias: ";
+                std::cin >> numCopias;
+                std::cout << "Digite o defeito: ";
+                std::cin.ignore();
+                std::getline(std::cin, defeito);
+                std::cout << "Digite o endereço: ";
+                std::getline(std::cin, endereco);
+                bool retorno = bancoDeDados.editarLivro(titulo, genero, autor, numCopias, defeito, endereco);
+                if(retorno == false){
+                    std::cout << "Livro não encontrado" << std::endl;
+                }else{
+                    std::cout << "Livro atualizado com sucesso" << std::endl;
+                }
+                break;
+            }
+            case 4:{
+                std::string titulo, autor;
+                std::cout << "Digite o título do livro a ser removido: ";
+                std::cin.ignore();
+                std::getline(std::cin, titulo);
+                std::cout << "Digite o autor do livro a ser removido: ";
+                std::getline(std::cin, autor);
+                bool retorno = bancoDeDados.removerLivro(titulo, autor);
+                if(retorno == false){
+                    std::cout << "Livro não encontrado" << std::endl;
+                }else{
+                    std::cout << "Livro removido com sucesso" << std::endl;
+                }
+                break;
+            }
+            case 5:
+                break;
+            default:
+                break;
+        }
+    } while (escolha != 5);
+
+}
+
 void interfaceAdministrador(){
     int escolha;
     bool login = loginAdministrador();
@@ -120,7 +205,7 @@ void interfaceAdministrador(){
                     AdministradorGerenciarUsuarios();
                     break;
                 case 2:
-                    // AdministradorGerenciarLivros();
+                    AdministradorGerenciarLivros();
                     break;
                 case 3:
                     // AdministradorGerenciarEmprestimos();
