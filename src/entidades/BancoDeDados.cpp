@@ -12,6 +12,8 @@ BancoDeDados::BancoDeDados() {
     this->usuarios.push_back(usuario3);
     this->usuarios.push_back(usuario4);
     this->usuarios.push_back(usuario5);
+
+    CatalogoLivros catalogoLivros;
 }
 
 std::vector<Usuario*> BancoDeDados::getUsuarios() {
@@ -75,6 +77,24 @@ bool BancoDeDados::loginAdministrador(std::string email, std::string senha) {
     bool retorno = administrador.login(email, senha);
     return retorno;
  }
+
+bool BancoDeDados::loginUsuario(std::string email, std::string senha) {
+    bool retorno = false;
+    for(auto usuario : this->usuarios){
+        if(usuario->getEmail() == email && usuario->getSenha() == senha){
+            retorno = true;
+            break;
+        }
+    }
+    return retorno;
+}
+
+
+Livro BancoDeDados::pesquisarLivro(std::string titulo){
+    CatalogoLivros catalogoLivros;
+    Livro livro = catalogoLivros.pesquisarLivro(titulo);
+    return livro;
+}
 
 BancoDeDados::~BancoDeDados(){
     for (auto usuario : this->usuarios) {
