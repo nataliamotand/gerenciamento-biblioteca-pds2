@@ -39,26 +39,49 @@ void CatalogoLivros::setGeneros(std::vector<std::string> generos) {
     this->generos = generos;
 }
 
-void CatalogoLivros::adicionarLivro(Livro livro) {
+bool CatalogoLivros::adicionarLivro(std::string titulo, std::string genero, std::string autor, int numCopias) {
+    Livro livro;
+    livro.setTitulo(titulo);
+    livro.setGenero(genero);
+    livro.setAutor(autor);
+    livro.setNumCopias(numCopias);
+    livro.setDisponibilidade(true);
+    livro.setCodigo("00" + std::to_string(this->livros.size() + 1));
+    livro.setEndereco("A" + std::to_string(this->livros.size() + 1));
+
     this->livros.push_back(livro);
+    return true;
 }
 
-void CatalogoLivros::removerLivro(Livro livro) {
+bool CatalogoLivros::removerLivro(std::string titulo, std::string autor) {
     std::vector<Livro>::size_type quantidadeLivros = this->livros.size();
     for (std::vector<Livro>::size_type i = 0; i < quantidadeLivros; i++) {
-        if (this->livros[i].getCodigo() == livro.getCodigo()) {
+        if (this->livros[i].getTitulo() == titulo && this->livros[i].getAutor() == autor) {
             this->livros.erase(this->livros.begin() + i);
+            return true;
         }
     }
+    return false;
 }
 
-void CatalogoLivros::editarLivro(Livro livro) {
+bool CatalogoLivros::editarLivro(std::string titulo, std::string genero, std::string autor,
+int numCopias, std::string defeito, std::string endereco) {
     std::vector<Livro>::size_type quantidadeLivros = this->livros.size();
     for (std::vector<Livro>::size_type i = 0; i < quantidadeLivros; i++) {
-        if (this->livros[i].getCodigo() == livro.getCodigo()) {
-            this->livros[i] = livro;
+        if (this->livros[i].getTitulo() == titulo && this->livros[i].getAutor() == autor) {
+            this->livros[i].setTitulo(titulo);
+            this->livros[i].setGenero(genero);
+            this->livros[i].setAutor(autor);
+            this->livros[i].setNumCopias(numCopias);
+
+            if(defeito != "")
+                this->livros[i].setDefeito(defeito);
+            if(endereco != "")
+                this->livros[i].setEndereco(endereco);
+            return true;
         }
     }
+    return false;
 }
 
 void CatalogoLivros::adicionarGenero(std::string genero) {
@@ -96,4 +119,20 @@ Livro CatalogoLivros::pesquisarLivro(std::string titulo) {
     }
 
     return livro;
+}
+
+void CatalogoLivros::imprimeTodosLivros(){
+    std::vector<Livro>::size_type quantidadeLivros = this->livros.size();
+
+    for (std::vector<Livro>::size_type i = 0; i < quantidadeLivros; i++) {
+        std::cout << "Livro " << i + 1 << std::endl;
+        std::cout << "Título: " << this->livros[i].getTitulo() << std::endl;
+        std::cout << "Gênero: " << this->livros[i].getGenero() << std::endl;
+        std::cout << "Autor: " << this->livros[i].getAutor() << std::endl;
+        std::cout << "Código: " << this->livros[i].getCodigo() << std::endl;
+        std::cout << "Endereço: " << this->livros[i].getEndereco() << std::endl;
+        std::cout << "Disponibilidade: " << this->livros[i].getDisponibilidade() << std::endl;
+        std::cout << "Número de cópias: " << this->livros[i].getNumCopias() << std::endl;
+        std::cout << "--------------------------" << std::endl;
+    }
 }
