@@ -97,11 +97,11 @@ void CatalogoLivros::removerGenero(std::string genero) {
     }
 }
 
-void CatalogoLivros::editarGenero(std::string genero) {
+void CatalogoLivros::editarGenero(std::string genero, std::string novoGenero) {
     std::vector<Livro>::size_type quantidadeGeneros = this->generos.size();
     for (std::vector<std::string>::size_type i = 0; i < quantidadeGeneros; i++) {
         if (this->generos[i] == genero) {
-            this->generos[i] = genero;
+            this->generos[i] = novoGenero;
         }
     }
 }
