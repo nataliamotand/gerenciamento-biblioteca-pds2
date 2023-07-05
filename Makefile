@@ -31,6 +31,20 @@ administrador.o:  src/entidades/Administrador.cpp src/entidades/Pessoa.cpp
 	@mkdir -p build
 	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c src/entidades/Administrador.cpp -o build/administrador.o
 
+livro: livro.o
+	$(CC) $(CFLAGS) -o livro build/livro.o
+
+livro.o: src/entidades/Livro.cpp
+	@mkdir -p build
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c src/entidades/Livro.cpp -o build/livro.o
+
+catalogo: catalogo.o
+	$(CC) $(CFLAGS) -o catalogo build/catalogo.o
+
+catalogo.o: src/entidades/CatalogoLivros.cpp
+	@mkdir -p build
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c src/entidades/CatalogoLivros.cpp -o build/catalogo.o
+
 bancoDeDados: bancoDeDados.o
 	$(CC) $(CFLAGS) -o bancoDeDados build/bancoDeDados.o
 
@@ -47,8 +61,8 @@ main.o: src/main.cpp
 
 
 # Link all files
-biblioteca: pessoa.o usuario.o administrador.o bancoDeDados.o main.o
-	$(CC) $(CFLAGS) -o biblioteca build/main.o build/pessoa.o build/usuario.o build/administrador.o build/bancoDeDados.o
+biblioteca: pessoa.o usuario.o administrador.o livro.o catalogo.o bancoDeDados.o main.o
+	$(CC) $(CFLAGS) -o biblioteca build/main.o build/pessoa.o build/usuario.o build/administrador.o build/livro.o build/catalogo.o build/bancoDeDados.o
 
 
 # Compilando o executável de testes
