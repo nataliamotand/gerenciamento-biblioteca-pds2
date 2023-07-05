@@ -12,8 +12,6 @@ BancoDeDados::BancoDeDados() {
     this->usuarios.push_back(usuario3);
     this->usuarios.push_back(usuario4);
     this->usuarios.push_back(usuario5);
-
-    CatalogoLivros catalogoLivros;
 }
 
 std::vector<Usuario*> BancoDeDados::getUsuarios() {
@@ -91,9 +89,28 @@ bool BancoDeDados::loginUsuario(std::string email, std::string senha) {
 
 
 Livro BancoDeDados::pesquisarLivro(std::string titulo){
-    CatalogoLivros catalogoLivros;
-    Livro livro = catalogoLivros.pesquisarLivro(titulo);
+    Livro livro = this->catalogoLivros.pesquisarLivro(titulo);
     return livro;
+}
+
+bool BancoDeDados::adicionarLivro(std::string titulo, std::string genero, std::string autor, int numCopias){
+    bool livroAdicionado = this->catalogoLivros.adicionarLivro(titulo, genero, autor, numCopias);
+    return livroAdicionado;
+}
+
+void BancoDeDados::imprimeTodosLivros(){
+    this->catalogoLivros.imprimeTodosLivros();
+}
+
+bool BancoDeDados::removerLivro(std::string titulo, std::string autor){
+    bool livroRemovido = this->catalogoLivros.removerLivro(titulo, autor);
+    return livroRemovido;
+}
+
+bool BancoDeDados::editarLivro(std::string titulo, std::string genero, std::string autor, int numCopias,
+                        std::string defeito, std::string endereco){
+    bool livroEditado = this->catalogoLivros.editarLivro(titulo, genero, autor, numCopias, defeito, endereco);
+    return livroEditado;
 }
 
 BancoDeDados::~BancoDeDados(){
