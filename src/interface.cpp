@@ -4,7 +4,6 @@
 #include <iostream>
 
 BancoDeDados bancoDeDados = BancoDeDados();
-Administrador administrador = Administrador();
 
 bool loginAdministrador() {
     std::string email, senha;
@@ -14,7 +13,19 @@ bool loginAdministrador() {
     std::cout<<"Digite a sua senha: ";
     std::cin>>senha;
 
-    bool retorno = administrador.login(email, senha);
+    bool retorno = bancoDeDados.loginAdministrador(email, senha);
+    return retorno;
+}
+
+bool loginUsuario() {
+    std::string email, senha;
+
+    std::cout<<"Digite o seu email: ";
+    std::cin>>email;
+    std::cout<<"Digite a sua senha: ";
+    std::cin>>senha;
+
+    bool retorno = bancoDeDados.loginUsuario(email, senha);
     return retorno;
 }
 
@@ -123,5 +134,59 @@ void interfaceAdministrador(){
         }while(escolha != 4);
     }else{
         std::cout<<"Email ou senha incorretos"<<std::endl;
+    }
+}
+
+
+void UsuarioPesquisarLivro(){
+    std::string titulo;
+    std::cout << "Digite o título do livro: ";
+    std::cin.ignore();
+    std::getline(std::cin, titulo);
+    Livro livro = bancoDeDados.pesquisarLivro(titulo);
+    if(livro.getTitulo() == ""){
+        std::cout << "Nenhum livro encontrado" << std::endl;
+    }else{
+        if(livro.getDisponibilidade()){
+            std::cout << "Livro disponível" << std::endl;
+            std::cout << "Número de cópias disponíveis: " << livro.getNumCopias() << std::endl;
+        }else{
+            std::cout << "Livro indisponível" << std::endl;
+            // std::cout << "Data de devolução prevista: " << livro.getDataDevolucao() << std::endl;
+        }
+    }
+}
+
+void interfaceUsuario(){
+    int escolha;
+    bool login = loginUsuario();
+    if(login){
+        do{
+            std::cout << "1 - Pesquisar livro pelo título" << std::endl;
+            std::cout << "2 - Visualizar livros emprestados" << std::endl;
+            std::cout << "3 - Renovar livro emprestado" << std::endl;
+            std::cout << "4 - Realizar empréstimo de livro" << std::endl;
+            std::cout << "5 - Sair" << std::endl;
+            std::cin >> escolha;
+            switch (escolha){
+                case 1:
+                    UsuarioPesquisarLivro();
+                    break;
+                case 2:
+                    // UsuarioVisualizarLivros();
+                    break;
+                case 3:
+                    // UsuarioRenovarLivro();
+                    break;
+                case 4:
+                    // UsuarioRealizarEmprestimo();
+                    break;
+                case 5:
+                    break;
+                default:
+                    std::cout << "Opção inválida" << std::endl;
+                    break;
+            }
+        }while(escolha != 5);
     }
 }
