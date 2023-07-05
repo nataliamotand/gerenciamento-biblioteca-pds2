@@ -24,10 +24,11 @@ class CatalogoLivros {
         void setLivros(std::vector<Livro> livros);
         void setGeneros(std::vector<std::string> generos);
 
-        void adicionarLivro(Livro livro);
-        void removerLivro(Livro livro);
-        void editarLivro(Livro livro);
+        bool adicionarLivro(std::string titulo, std::string genero, std::string autor, int numCopias);
+        bool removerLivro(std::string titulo, std::string autor);
+        bool editarLivro(std::string titulo, std::string genero, std::string autor, int numCopias, std::string defeito, std::string endereco);
         Livro pesquisarLivro(std::string titulo);
+        void imprimeTodosLivros();
 };
 
 #endif
