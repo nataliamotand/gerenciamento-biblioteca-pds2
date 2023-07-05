@@ -1,3 +1,4 @@
+
 #ifndef BANCODEDADOS_HPP
 #define BANCODEDADOS_HPP
 
@@ -14,7 +15,7 @@ class BancoDeDados {
     private:
         std::vector<Usuario*> usuarios;
 
-
+        CatalogoLivros catalogoLivros;
 
     public:
         BancoDeDados();
@@ -31,7 +32,11 @@ class BancoDeDados {
         bool loginAdministrador(std::string email, std::string senha);
         bool loginUsuario(std::string email, std::string senha);
         Livro pesquisarLivro(std::string titulo);
-
+        bool adicionarLivro(std::string titulo, std::string genero, std::string autor, int numCopias);
+        void imprimeTodosLivros();
+        bool removerLivro(std::string titulo, std::string autor);
+        bool editarLivro(std::string titulo, std::string genero, std::string autor, int numCopias,
+                        std::string defeito, std::string endereco);
         ~BancoDeDados();
 };
 
