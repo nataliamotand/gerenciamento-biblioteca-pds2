@@ -1,4 +1,3 @@
-
 #include "BancoDeDados.hpp"
 
 BancoDeDados::BancoDeDados() {
@@ -13,6 +12,8 @@ BancoDeDados::BancoDeDados() {
     this->usuarios.push_back(usuario3);
     this->usuarios.push_back(usuario4);
     this->usuarios.push_back(usuario5);
+
+    this->dataAtual = Data(1, 6, 2023);
 }
 
 std::vector<Usuario*> BancoDeDados::getUsuarios() {
@@ -112,6 +113,60 @@ bool BancoDeDados::editarLivro(std::string titulo, std::string genero, std::stri
                         std::string defeito, std::string endereco){
     bool livroEditado = this->catalogoLivros.editarLivro(titulo, genero, autor, numCopias, defeito, endereco);
     return livroEditado;
+}
+
+bool BancoDeDados::emprestarLivro(std::string titulo, std::string autor, std::string email){
+    if(this->catalogoLivros.livroEstaDisponivel(titulo, autor)){
+        for(auto usuario : this->usuarios){
+            if(usuario->getEmail() == email){
+                Livro livro = this->catalogoLivros.pesquisarLivro(titulo);
+                usuario->pegarLivroEmprestado(livro, this->dataAtual);
+                this->catalogoLivros.emprestarLivro(titulo, autor, this->dataAtual);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+std::vector<std::map<Livro, std::map<Data, Data>>> BancoDeDados::visualizarLivrosEmprestados(std::string email){
+    std::vector<std::map<Livro, std::map<Data, Data>>> livrosEmprestados;
+    for(auto usuario : this->usuarios){
+        if(usuario->getEmail() == email){
+            livrosEmprestados = usuario->getLivrosEmprestados();
+            break;
+        }
+    }
+    return livrosEmprestados;
+}
+
+bool BancoDeDados::renovarLivro(std::string titulo, std::string email){
+    bool livroRenovado = false;
+    for(auto usuario : this->usuarios){
+        if(usuario->getEmail() == email){
+            livroRenovado = usuario->renovarLivro(titulo, this->dataAtual);
+            break;
+        }
+    }
+    return livroRenovado;
+}
+
+bool BancoDeDados::usuarioPodePegarLivroEmprestado(std::string email){
+    bool usuarioPodePegarLivroEmprestado = false;
+    for(auto usuario : this->usuarios){
+        if(usuario->getEmail() == email){
+            usuarioPodePegarLivroEmprestado = usuario->podePegarLivroEmprestado();
+            break;
+        }
+    }
+    return usuarioPodePegarLivroEmprestado;
+}
+
+void BancoDeDados::imprimeHistoricoAtividadeUsuarios(){
+    for(auto usuario : this->usuarios){
+        if(usuario->getMulta() > 0 || usuario->getLivrosEmprestados().size() > 0)
+            usuario->imprimeHistoricoAtividade();
+    }
 }
 
 BancoDeDados::~BancoDeDados(){
