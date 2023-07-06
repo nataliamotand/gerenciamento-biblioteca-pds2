@@ -11,6 +11,14 @@ class Administrador : public Pessoa {
 
 
     public:
+        /*
+        * Construtor da classe Administrador
+        * 
+        * Inicializa o administrador com um nome, email e senha padrão
+        * nome: Biblioteca
+        * email: biblioteca@ufmg.br
+        * senha: 1234
+        */
         Administrador();
 };
 
