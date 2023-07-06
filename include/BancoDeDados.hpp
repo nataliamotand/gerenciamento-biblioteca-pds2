@@ -1,11 +1,10 @@
-
-
 #ifndef BANCODEDADOS_HPP
 #define BANCODEDADOS_HPP
 
 #include "Usuario.hpp"
 #include "Administrador.hpp"
 #include "CatalogoLivros.hpp"
+#include "Data.hpp"
 
 #include <vector>
 #include <string>
@@ -17,6 +16,8 @@ class BancoDeDados {
         std::vector<Usuario*> usuarios;
 
         CatalogoLivros catalogoLivros;
+
+        Data dataAtual;
 
     public:
         BancoDeDados();
@@ -38,6 +39,11 @@ class BancoDeDados {
         bool removerLivro(std::string titulo, std::string autor);
         bool editarLivro(std::string titulo, std::string genero, std::string autor, int numCopias,
                         std::string defeito, std::string endereco);
+        bool emprestarLivro(std::string titulo, std::string autor, std::string email);
+        std::vector<std::map<Livro, std::map<Data, Data>>> visualizarLivrosEmprestados(std::string email);
+        bool renovarLivro(std::string titulo, std::string email);
+        bool usuarioPodePegarLivroEmprestado(std::string email);
+        void imprimeHistoricoAtividadeUsuarios();
         ~BancoDeDados();
 };
 
