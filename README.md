@@ -7,7 +7,7 @@ O projeto consiste em um sistema para biblioteca, onde é possível cadastrar li
 ## Para compilar
 - Digitar o comando `make` no terminal
 ## Para executar
-- Digitar `./trabalho` no terminal
+- Digitar `./biblioteca` no terminal
 ## Para executar os testes
 - Digitar `./testesUnitarios` no terminal. Na execução, é possível ver o resultado para todos testes unitários
 ## Para gerar o relatório de cobertura e visualizar o resultado
