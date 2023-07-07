@@ -9,14 +9,16 @@ class Data{
         int dia;
         int mes;
         int ano;
+        int diasNoMes(int mes, int ano);
+
     public:
         Data();
         Data(int dia, int mes, int ano);
         Data getData() const;
         friend std::ostream& operator<<(std::ostream& os, const Data& data);
-        int getDia();
-        int getMes();
-        int getAno();
+        int getDia() const;
+        int getMes() const;
+        int getAno() const;
         void setDia(int dia);
         void setMes(int mes);
         void setAno(int ano);
@@ -31,5 +33,6 @@ class Data{
             }
             return this->dia < other.dia;
         }
+        int calcularDiferenca(Data data);
 };
 #endif
