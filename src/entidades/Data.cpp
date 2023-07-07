@@ -17,15 +17,15 @@ std::ostream& operator<<(std::ostream& os, const Data& data) {
     return os;
 }
 
-int Data::getDia() {
+int Data::getDia() const{
     return this->dia;
 }
 
-int Data::getMes() {
+int Data::getMes() const{
     return this->mes;
 }
 
-int Data::getAno() {
+int Data::getAno() const{
     return this->ano;
 }
 
@@ -45,8 +45,42 @@ void Data::imprimeData() {
     std::cout << this->dia << "/" << this->mes << "/" << this->ano << std::endl;
 }
 
-Data Data::adicionarDias(Data dataInicial, int dias){
-    Data data = dataInicial;
-    data.setDia(data.getDia() + dias);
-    return data;
+int Data::diasNoMes(int mes, int ano) {
+    if (mes == 2) {
+        if ((ano % 4 == 0 && ano % 100 != 0) || ano % 400 == 0) {
+            return 29;
+        } else {
+            return 28;
+        }
+    } else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+        return 30;
+    } else {
+        return 31;
+    }
+}
+
+Data Data::adicionarDias(Data dataInicial, int dias) {
+    int dia = dataInicial.getDia() + dias;
+    int mes = dataInicial.getMes();
+    int ano = dataInicial.getAno();
+
+    while (dia > Data::diasNoMes(mes, ano)) {
+        dia -= Data::diasNoMes(mes, ano);
+        mes++;
+        if (mes > 12) {
+            mes = 1;
+            ano++;
+        }
+    }
+
+    return Data(dia, mes, ano);
+}
+
+int Data::calcularDiferenca(Data data){
+    int dias = 0;
+    while (data < *this){
+        data = data.adicionarDias(data, 1);
+        dias++;
+    }
+    return dias;
 }
