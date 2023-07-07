@@ -91,3 +91,22 @@ TEST_CASE("Testa se edição de livro está funcionando"){
     CHECK_EQ(catalogoLivros.pesquisarLivro("O Poder da Espada").getNumCopias(), 1);
     CHECK_EQ(catalogoLivros.pesquisarLivro("O Poder da Espada").getEndereco(), "A1");
 }
+
+TEST_CASE("Testa se o livro está disponível"){
+    CatalogoLivros catalogoLivros = CatalogoLivros();
+    CHECK_EQ(catalogoLivros.livroEstaDisponivel("O Pequeno Príncipe", "Antoine de Saint-Exupéry"), true);
+}
+
+TEST_CASE("Testa se o livro não está disponível"){
+    CatalogoLivros catalogoLivros = CatalogoLivros();
+    catalogoLivros.adicionarLivro("O Poder da Espada", "Fantasia", "Joe Abercrombie", 1);
+    catalogoLivros.emprestarLivro("O Poder da Espada", "Joe Abercrombie", Data(1, 5, 2023));
+    CHECK_EQ(catalogoLivros.livroEstaDisponivel("O Poder da Espada", "Joe Abercrombie"), false);
+}
+
+TEST_CASE("Testa se o livro foi emprestado"){
+    CatalogoLivros catalogoLivros = CatalogoLivros();
+    catalogoLivros.emprestarLivro("O Pequeno Príncipe", "Antoine de Saint-Exupéry", Data(1, 5, 2023));
+    CHECK_EQ(catalogoLivros.livroEstaDisponivel("O Pequeno Príncipe", "Antoine de Saint-Exupéry"), false);
+}
+
