@@ -51,3 +51,29 @@ void Usuario::pegarLivroEmprestado(Livro livro, Data dataEmprestimo){
 std::vector<std::map<Livro, std::map<Data, Data>>> Usuario::getLivrosEmprestados(){
     return this->emprestimo.getLivros();
 }
+
+bool Usuario::renovarLivro(std::string titulo, Data dataAtual){
+    return this->emprestimo.renovarLivro(titulo, dataAtual);
+}
+
+bool Usuario::podePegarLivroEmprestado(){
+    return this->emprestimo.podePegarLivroEmprestado();
+}
+
+void Usuario::imprimeHistoricoAtividade(){
+    std::cout << "Nome: " << this->getNome() << std::endl;
+    std::cout << "Livros emprestados: " << std::endl;
+    std::vector<std::map<Livro, std::map<Data, Data>>> livros = this->emprestimo.getLivros();
+    for (auto livro : livros){
+        std::cout << "Titulo: " << livro.begin()->first.getTitulo() << std::endl;
+        std::cout << "Data emprestimo: ";
+        Data data = livro.begin()->second.begin()->first;
+        data.imprimeData();
+        std::cout << "Data devolucao: ";
+        Data data2 = livro.begin()->second.begin()->second;
+        data2.imprimeData();
+        std::cout << "------------------------------------------" << std::endl;
+    }
+    if(this->multa > 0)
+        std::cout << "Multas a pagar totalizando: " << this->multa << std::endl;
+}
