@@ -197,18 +197,26 @@ void AdministradorGerenciarEmprestimos(){
     int escolha;
     do{
         std::cout << "1 - Ver histórico de atividades dos usuários" << std::endl;
-        std::cout << "2 - Sair" << std::endl;
+        std::cout << "2 - Gerar relatório de usuários com livros atrasados" << std::endl;
+        std::cout << "3 - Gerar relatório estatístico de demandas" << std::endl;
+        std::cout << "4 - Sair" << std::endl;
         std::cin >> escolha;
         switch (escolha){
             case 1:
                 bancoDeDados.imprimeHistoricoAtividadeUsuarios();
                 break;
             case 2:
+                bancoDeDados.imprimeRelatorioUsuariosComLivrosAtrasados();
+                break;
+            case 3:
+                bancoDeDados.imprimeRelatorioEstatisticoDemanda();
+                break;
+            case 4:
                 break;
             default:
                 break;
         }
-    } while (escolha != 2);
+    } while (escolha != 4);
 }
 
 void interfaceAdministrador(){
