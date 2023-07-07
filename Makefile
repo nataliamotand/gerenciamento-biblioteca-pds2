@@ -110,8 +110,14 @@ testeEmprestimo: testeEmprestimo.o
 testeEmprestimo.o: testes/testeEmprestimo.cpp
 	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c testes/testeEmprestimo.cpp -o build/testeEmprestimo.o
 
-testesUnitarios: testeAdministrador.o pessoa.o administrador.o testeUsuario.o usuario.o testeCatalogoLivros.o catalogo.o livro.o data.o emprestimo.o testeData.o testeEmprestimo.o
-	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -o testesUnitarios build/testeAdministrador.o build/pessoa.o build/administrador.o build/testeUsuario.o build/usuario.o build/testeCatalogoLivros.o build/catalogo.o build/livro.o build/data.o build/emprestimo.o build/testeData.o build/testeEmprestimo.o
+testeLivro: testeLivro.o
+	$(CC) $(CFLAGS) -o testeLivro build/testeLivro.o
+
+testeLivro.o: testes/testeLivro.cpp
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c testes/testeLivro.cpp -o build/testeLivro.o
+
+testesUnitarios: testeAdministrador.o pessoa.o administrador.o testeUsuario.o usuario.o testeCatalogoLivros.o catalogo.o livro.o data.o emprestimo.o testeData.o testeEmprestimo.o testeLivro.o
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -o testesUnitarios build/testeAdministrador.o build/pessoa.o build/administrador.o build/testeUsuario.o build/usuario.o build/testeCatalogoLivros.o build/catalogo.o build/livro.o build/data.o build/emprestimo.o build/testeData.o build/testeEmprestimo.o build/testeLivro.o
 
 
 # Run coverage
