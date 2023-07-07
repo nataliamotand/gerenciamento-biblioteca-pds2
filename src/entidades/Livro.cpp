@@ -60,6 +60,13 @@ std::string Livro::getEndereco() {
     return this->endereco;
 }
 
+Data Livro::getDataDevolucao() {
+    return this->dataDevolucao;
+}
+
+Data Livro::getDataEmprestimo(){
+    return this->dataEmprestimo;
+}
 
 void Livro::setTitulo(std::string titulo) {
     this->titulo = titulo;
@@ -93,7 +100,13 @@ void Livro::setEndereco(std::string endereco) {
     this->endereco = endereco;
 }
 
-// Fazer lógica para verificar disponibilidade do livro
+void Livro::setDataDevolucao(Data dataDevolucao){
+    this->dataDevolucao = dataDevolucao;
+}
+void Livro::setDataEmprestimo(Data dataEmprestimo){
+    this->dataEmprestimo = dataEmprestimo;
+}
+
 void Livro::emprestarLivro() {
     this->numCopias--;
 }
