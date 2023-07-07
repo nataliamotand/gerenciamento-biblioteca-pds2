@@ -142,5 +142,10 @@ Colaboradores:
 - Digitar o comando `gcovr -r . --html --html-details -o coverage/coverage.html` no terminal
 - Abrir o arquivo `coverage.html` na pasta `coverage/` para visualizar o resultado no navegador
 
+## Para gerar a documentação do código
+> Você tem que ter instalado o `doxygen` no seu computador
+- Digitar o comando `doxygen` no terminal
+- Abrir o arquivo `index.html` na pasta `docs/html` para visualizar a documentação no navegador
+
 ## Para exclusão dos arquivos objeto, executável e relatório de cobertura
 - Digitar o comando `make clean` no terminal
