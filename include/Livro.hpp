@@ -16,6 +16,7 @@ class Livro {
         std::string defeito;
         std::string codigo;
         std::string endereco;
+        Data dataEmprestimo, dataDevolucao;
 
     public:
         Livro();
@@ -32,6 +33,8 @@ class Livro {
         std::string getDefeito();
         std::string getCodigo();
         std::string getEndereco();
+        Data getDataDevolucao();
+        Data getDataEmprestimo();
 
         void setTitulo(std::string titulo);
         void setGenero(std::string genero);
@@ -41,6 +44,8 @@ class Livro {
         void setDefeito(std::string defeito);
         void setCodigo(std::string codigo);
         void setEndereco(std::string endereco);
+        void setDataDevolucao(Data dataDevolucao);
+        void setDataEmprestimo(Data dataEmprestimo);
 
         void emprestarLivro();
         void devolverLivro();
