@@ -127,4 +127,4 @@ coverage:
 
 # Clean all files
 clean:
-	rm -rf ./build biblioteca testesUnitarios coverage/*
+	rm -rf ./build biblioteca testesUnitarios coverage/* docs/*
