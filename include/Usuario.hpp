@@ -42,6 +42,9 @@ class Usuario : public Pessoa {
 
         void pegarLivroEmprestado(Livro livro, Data dataEmprestimo);
         std::vector<std::map<Livro, std::map<Data, Data>>> getLivrosEmprestados();
+        bool renovarLivro(std::string titulo, Data dataAtual);
+        bool podePegarLivroEmprestado();
+        void imprimeHistoricoAtividade();
 };
 
 #endif
