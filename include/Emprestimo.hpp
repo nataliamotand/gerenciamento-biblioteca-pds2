@@ -16,6 +16,7 @@ class Emprestimo {
         // multa(s) e livro(s) atrasado(s)
         std::vector<std::map<Livro*, float>> multa;
         const int diasPadraoEmprestimo = 14;
+        const int maximoLivrosEmprestados = 2;
 
     public:
         Emprestimo();
@@ -23,6 +24,8 @@ class Emprestimo {
         int getDiasPadraoEmprestimo();
         Data calcularDataDevolucao(Data dataEmprestimo);
         void adicionarLivro(Livro livro, Data dataEmprestimo);
+        bool renovarLivro(std::string titulo, Data dataAtual);
+        bool podePegarLivroEmprestado();
 };
 
 
