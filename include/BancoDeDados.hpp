@@ -1,6 +1,7 @@
 #ifndef BANCODEDADOS_HPP
 #define BANCODEDADOS_HPP
 
+
 #include "Usuario.hpp"
 #include "Administrador.hpp"
 #include "CatalogoLivros.hpp"
@@ -44,6 +45,8 @@ class BancoDeDados {
         bool renovarLivro(std::string titulo, std::string email);
         bool usuarioPodePegarLivroEmprestado(std::string email);
         void imprimeHistoricoAtividadeUsuarios();
+        void imprimeRelatorioUsuariosComLivrosAtrasados();
+        void imprimeRelatorioEstatisticoDemanda();
         ~BancoDeDados();
 };
 
