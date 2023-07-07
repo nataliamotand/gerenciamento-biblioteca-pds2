@@ -2,17 +2,17 @@
 
 CatalogoLivros::CatalogoLivros() {
     Livro livrosIniciais[11] = {
-        Livro("O Pequeno Príncipe", "Infantil", "Antoine de Saint-Exupéry", 10, true, "", "0011", "B1"),
-        Livro("A Menina que Roubava Livros", "Drama", "Markus Zusak", 9, true, "", "0012", "C1"),
-        Livro("O Senhor dos Anéis", "Fantasia", "J. R. R. Tolkien", 9, true, "", "0001", "A1"),
-        Livro("O Hobbit", "Fantasia", "J. R. R. Tolkien", 10, true, "", "0002", "A2"),
-        Livro("A Grande Caçada", "Fantasia", "Robert Jordan", 6, true, "", "0010", "A10"),
-        Livro("O Nome do Vento", "Fantasia", "Patrick Rothfuss", 5, true, "", "0004", "A4"),
-        Livro("O Temor do Sábio", "Fantasia", "Patrick Rothfuss", 6, true, "", "0005", "A5"),
-        Livro("O Aprendiz de Assassino", "Fantasia", "Robin Hobb", 3, true, "", "0006", "A6"),
-        Livro("O Punhal do Soberano", "Fantasia", "Robin Hobb", 4, true, "", "0007", "A7"),
+        Livro("O Pequeno Príncipe", "Infantil", "Antoine de Saint-Exupéry", 1, true, "", "0011", "B1"),
+        Livro("A Menina que Roubava Livros", "Drama", "Markus Zusak", 1, true, "", "0012", "C1"),
+        Livro("O Senhor dos Anéis", "Fantasia", "J. R. R. Tolkien", 1, true, "", "0001", "A1"),
+        Livro("O Hobbit", "Fantasia", "J. R. R. Tolkien", 1, true, "", "0002", "A2"),
+        Livro("A Grande Caçada", "Fantasia", "Robert Jordan", 1, true, "", "0010", "A10"),
+        Livro("O Nome do Vento", "Fantasia", "Patrick Rothfuss", 1, true, "", "0004", "A4"),
+        Livro("O Temor do Sábio", "Fantasia", "Patrick Rothfuss", 1, true, "", "0005", "A5"),
+        Livro("O Aprendiz de Assassino", "Fantasia", "Robin Hobb", 1, true, "", "0006", "A6"),
+        Livro("O Punhal do Soberano", "Fantasia", "Robin Hobb", 1, true, "", "0007", "A7"),
         Livro("O Assassino do Rei", "Fantasia", "Robin Hobb", 1, true, "", "0008", "A8"),
-        Livro("O Dragão Renascido", "Fantasia", "Robert Jordan", 2, true, "", "0009", "A9")
+        Livro("O Dragão Renascido", "Fantasia", "Robert Jordan", 1, true, "", "0009", "A9")
     };
 
     for (int i = 0; i < 11; i++) {
@@ -119,6 +119,30 @@ Livro CatalogoLivros::pesquisarLivro(std::string titulo) {
     }
 
     return livro;
+}
+
+bool CatalogoLivros::livroEstaDisponivel(std::string titulo, std::string autor){
+    std::vector<Livro>::size_type quantidadeLivros = this->livros.size();
+
+    for (std::vector<Livro>::size_type i = 0; i < quantidadeLivros; i++) {
+        if (this->livros[i].getTitulo() == titulo && this->livros[i].getAutor() == autor) {
+            return this->livros[i].getDisponibilidade();
+        }
+    }
+    return false;
+}
+
+void CatalogoLivros::emprestarLivro(std::string titulo, std::string autor, Data dataAtual){
+    std::vector<Livro>::size_type quantidadeLivros = this->livros.size();
+
+    for (std::vector<Livro>::size_type i = 0; i < quantidadeLivros; i++) {
+        if (this->livros[i].getTitulo() == titulo && this->livros[i].getAutor() == autor) {
+            this->livros[i].setDisponibilidade(false);
+            this->livros[i].setNumCopias(this->livros[i].getNumCopias() - 1);
+            this->livros[i].setDataDevolucao(dataAtual.adicionarDias(dataAtual, 14));
+            this->livros[i].setDataEmprestimo(dataAtual);
+        }
+    }
 }
 
 void CatalogoLivros::imprimeTodosLivros(){
