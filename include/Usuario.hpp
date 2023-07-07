@@ -15,7 +15,6 @@ class Usuario : public Pessoa {
         std::string idEstudantil;
         int diasAtraso;
         float multa;
-        std::string linkPagamento;
 
         Emprestimo emprestimo = Emprestimo();
 
@@ -27,24 +26,19 @@ class Usuario : public Pessoa {
         std::string getIdEstudantil();
         int getDiasAtraso();
         float getMulta();
-        std::string getLinkPagamento();
 
         void setCurso(std::string curso);
         void setIdEstudantil(std::string idEstudantil);
         void setDiasAtraso(int diasAtraso);
         void setMulta(float multa);
-        void setLinkPagamento(std::string linkPagamento);
-
-        void adicionarLivro(Livro livro);
-        void removerLivro(Livro livro);
-        void calcularMulta();
-        void gerarLinkPagamento();
+        void calcularMulta(Data dataAtual);
 
         void pegarLivroEmprestado(Livro livro, Data dataEmprestimo);
         std::vector<std::map<Livro, std::map<Data, Data>>> getLivrosEmprestados();
         bool renovarLivro(std::string titulo, Data dataAtual);
         bool podePegarLivroEmprestado();
         void imprimeHistoricoAtividade();
+        void imprimeRelatorioUsuariosComLivrosAtrasados();
 };
 
 #endif
