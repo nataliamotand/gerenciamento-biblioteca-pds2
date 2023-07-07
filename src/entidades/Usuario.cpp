@@ -5,6 +5,7 @@ Usuario::Usuario(std::string nome, std::string email, std::string senha,
     : Pessoa(nome, email, senha) {
     this->curso = curso;
     this->idEstudantil = idEstudantil;
+    this->multa = 0;
 }
 
 
@@ -24,10 +25,6 @@ float Usuario::getMulta() {
     return this->multa;
 }
 
-std::string Usuario::getLinkPagamento() {
-    return this->linkPagamento;
-}
-
 void Usuario::setCurso(std::string curso) {
     this->curso = curso;
 }
@@ -42,6 +39,11 @@ void Usuario::setDiasAtraso(int diasAtraso) {
 
 void Usuario::setMulta(float multa) {
     this->multa = multa;
+}
+
+void Usuario::calcularMulta(Data dataAtual){
+    this->emprestimo.calcularMulta(dataAtual);
+    this->multa = this->emprestimo.getMulta();
 }
 
 void Usuario::pegarLivroEmprestado(Livro livro, Data dataEmprestimo){
@@ -72,8 +74,30 @@ void Usuario::imprimeHistoricoAtividade(){
         std::cout << "Data devolucao: ";
         Data data2 = livro.begin()->second.begin()->second;
         data2.imprimeData();
-        std::cout << "------------------------------------------" << std::endl;
+        std::cout << "-----------------" << std::endl;
     }
-    if(this->multa > 0)
+    if(this->multa > 0){
         std::cout << "Multas a pagar totalizando: " << this->multa << std::endl;
+        std::cout << "--------------------//--------------------" << std::endl;
+    }
+}
+
+void Usuario::imprimeRelatorioUsuariosComLivrosAtrasados(){
+    std::cout << "Nome: " << this->getNome() << std::endl;
+    std::cout << "ID Estudantil: " << this->getIdEstudantil() << std::endl;
+    std::cout << "Livros atrasados: " << std::endl;
+    std::vector<std::map<Livro, std::map<Data, Data>>> livros = this->emprestimo.getLivros();
+    for (auto livro : livros){
+        std::cout << "Titulo: " << livro.begin()->first.getTitulo() << std::endl;
+        std::cout << "Data emprestimo: ";
+        Data data = livro.begin()->second.begin()->first;
+        data.imprimeData();
+        std::cout << "Data devolucao: ";
+        Data data2 = livro.begin()->second.begin()->second;
+        data2.imprimeData();
+        std::cout << "-----------------" << std::endl;
+    }
+
+    std::cout << "Multas a pagar totalizando: " << this->multa << std::endl;
+    std::cout << "--------------------//--------------------" << std::endl;
 }
