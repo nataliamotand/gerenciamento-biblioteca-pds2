@@ -101,3 +101,28 @@ TEST_CASE("Testa set de ID estudantil"){
     usuario.setIdEstudantil("987654321");
     CHECK_EQ(usuario.getIdEstudantil(), "987654321");
 }
+
+TEST_CASE("Testa se o usuario consegue pegar um livro emprestado e se o get de livros emprestados está funcionando"){
+    Usuario usuario = Usuario("João", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
+    usuario.pegarLivroEmprestado(Livro("O Pequeno Príncipe", "Infantil", "Antoine de Saint-Exupéry", 1, true, "", "0011", "B1"), Data(1, 5, 2023));
+    CHECK_EQ(usuario.getLivrosEmprestados().size(), 1);
+}
+
+TEST_CASE("Testa se o usuario consegue calcular multa de livro atrasado e se o get de multa está funcionando"){
+    Usuario usuario = Usuario("João", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
+    usuario.pegarLivroEmprestado(Livro("O Pequeno Príncipe", "Infantil", "Antoine de Saint-Exupéry", 1, true, "", "0011", "B1"), Data(1, 5, 2023));
+    usuario.calcularMulta(Data(16, 5, 2023));
+    CHECK_EQ(usuario.getMulta(), 1);
+}
+
+TEST_CASE("Testa se o usuario consegue renovar um livro emprestado"){
+    Usuario usuario = Usuario("João", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
+    usuario.pegarLivroEmprestado(Livro("O Pequeno Príncipe", "Infantil", "Antoine de Saint-Exupéry", 1, true, "", "0011", "B1"), Data(1, 5, 2023));
+    CHECK_EQ(usuario.renovarLivro("O Pequeno Príncipe", Data(1, 6, 2023)), true);
+}
+
+TEST_CASE("Testa se o usuario pode pegar livro emprestado"){
+    Usuario usuario = Usuario("João", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
+    usuario.pegarLivroEmprestado(Livro("O Pequeno Príncipe", "Infantil", "Antoine de Saint-Exupéry", 1, true, "", "0011", "B1"), Data(1, 5, 2023));
+    CHECK_EQ(usuario.podePegarLivroEmprestado(), true);
+}
