@@ -1,19 +1,25 @@
 #include "BancoDeDados.hpp"
 
 BancoDeDados::BancoDeDados() {
-    Usuario* usuario1 = new Usuario("João Paula", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
+    Usuario* usuario1 = new Usuario("João Paulo", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
     Usuario* usuario2 = new Usuario("Maria Flor", "maria@gmail.com", "1234", "Ciência da Computação", "987654321");
     Usuario* usuario3 = new Usuario("José Carlos", "jose@gmail.com", "1234", "Sistemas de Informação", "123556779");
     Usuario* usuario4 = new Usuario("Ana Paula", "ana@gmail.com", "1234", "Sistemas de Informação", "987556321");
     Usuario* usuario5 = new Usuario("Pedro Souza", "pedro@gmail.com", "1234", "Matemática Computacional", "110456789");
+
+    usuario1->pegarLivroEmprestado(Livro("O Pequeno Príncipe", "Infantil", "Antoine de Saint-Exupéry", 1, true, "", "0011", "B1"), Data(1, 5, 2023));
+    usuario2->pegarLivroEmprestado(Livro("A Menina que Roubava Livros", "Drama", "Markus Zusak", 1, true, "", "0012", "C1"), Data(2, 5, 2023));
+
+    this->dataAtual = Data(1, 6, 2023);
+
+    usuario1->calcularMulta(this->dataAtual);
+    usuario2->calcularMulta(this->dataAtual);
 
     this->usuarios.push_back(usuario1);
     this->usuarios.push_back(usuario2);
     this->usuarios.push_back(usuario3);
     this->usuarios.push_back(usuario4);
     this->usuarios.push_back(usuario5);
-
-    this->dataAtual = Data(1, 6, 2023);
 }
 
 std::vector<Usuario*> BancoDeDados::getUsuarios() {
@@ -167,6 +173,42 @@ void BancoDeDados::imprimeHistoricoAtividadeUsuarios(){
         if(usuario->getMulta() > 0 || usuario->getLivrosEmprestados().size() > 0)
             usuario->imprimeHistoricoAtividade();
     }
+}
+
+void BancoDeDados::imprimeRelatorioUsuariosComLivrosAtrasados(){
+    for(auto usuario : this->usuarios){
+        if(usuario->getMulta() > 0)
+            usuario->imprimeRelatorioUsuariosComLivrosAtrasados();
+    }
+}
+
+void BancoDeDados::imprimeRelatorioEstatisticoDemanda(){
+    std::vector<std::map<Livro, std::map<Data, Data>>> livrosEmprestados;
+    std::map<std::string, int> livrosEmprestadosPorMes;
+    std::map<std::string, int> livrosEmprestadosPorMesPorLivro;
+    std::string mes;
+    int quantidadeLivrosEmprestados = 0;
+    int quantidadeLivrosEmprestadosPorLivro = 0;
+    for(auto usuario : this->usuarios){
+        livrosEmprestados = usuario->getLivrosEmprestados();
+        for(auto livro : livrosEmprestados){
+            mes = std::to_string(livro.begin()->second.begin()->first.getMes());
+            quantidadeLivrosEmprestadosPorLivro = livrosEmprestadosPorMesPorLivro[mes + " " + livro.begin()->first.getTitulo()];
+            livrosEmprestadosPorMesPorLivro[mes + " " + livro.begin()->first.getTitulo()] = quantidadeLivrosEmprestadosPorLivro + 1;
+            quantidadeLivrosEmprestados = livrosEmprestadosPorMes[mes];
+            livrosEmprestadosPorMes[mes] = quantidadeLivrosEmprestados + 1;
+        }
+    }
+    std::cout << "Relatorio estatistico de demanda" << std::endl;
+    std::cout << "Quantidade de emprestimos por mes: " << std::endl;
+    for(auto mes : livrosEmprestadosPorMes){
+        std::cout << "Mes: " << mes.first << " Quantidade: " << mes.second << std::endl;
+    }
+    std::cout << "Quantidade de emprestimos por mes por livro: " << std::endl;
+    for(auto mes : livrosEmprestadosPorMesPorLivro){
+        std::cout << "Mes: " << mes.first << " Quantidade: " << mes.second << std::endl;
+    }
+    std::cout << "--------------------//--------------------" << std::endl;
 }
 
 BancoDeDados::~BancoDeDados(){
