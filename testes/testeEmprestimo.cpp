@@ -35,3 +35,22 @@ TEST_CASE("Testando se usuário pode pegar livro emprestado"){
     Emprestimo emprestimo = Emprestimo();
     CHECK_EQ(emprestimo.podePegarLivroEmprestado(), true);
 }
+
+TEST_CASE("Testando get e cálculo de multa para livro atrasado"){
+    Emprestimo emprestimo = Emprestimo();
+    Livro livro = Livro("titulo", "genero", "autor", 10, true, "", "0011", "B1");
+    Data data = Data(1, 6, 2023);
+    emprestimo.adicionarLivro(livro, data);
+    Data dataAtual = Data(16, 6, 2023);
+    emprestimo.calcularMulta(dataAtual);
+    CHECK_EQ(emprestimo.getMulta(), 1);
+}
+
+// testa renovação de livro
+TEST_CASE("Testando renovação de livro"){
+    Emprestimo emprestimo = Emprestimo();
+    Livro livro = Livro("titulo", "genero", "autor", 10, true, "", "0011", "B1");
+    Data data = Data(1, 6, 2023);
+    emprestimo.adicionarLivro(livro, data);
+    CHECK_EQ(emprestimo.renovarLivro("titulo", data), true);
+}
