@@ -57,3 +57,25 @@ TEST_CASE("Testando adição de dias") {
     REQUIRE(data2.getMes() == 6);
     REQUIRE(data2.getAno() == 2023);
 }
+
+TEST_CASE("Testando adição de dias em meses diferentes") {
+    Data data = Data(1, 6, 2023);
+    Data data2 = data.adicionarDias(data, 30);
+    REQUIRE(data2.getDia() == 1);
+    REQUIRE(data2.getMes() == 7);
+    REQUIRE(data2.getAno() == 2023);
+}
+
+TEST_CASE("Testando adição de dias em anos diferentes") {
+    Data data = Data(1, 6, 2023);
+    Data data2 = data.adicionarDias(data, 365);
+    REQUIRE(data2.getDia() == 31);
+    REQUIRE(data2.getMes() == 5);
+    REQUIRE(data2.getAno() == 2024);
+}
+
+TEST_CASE("Testando cálculo de diferença de dias") {
+    Data data = Data(1, 6, 2023);
+    Data data2 = Data(3, 6, 2023);
+    REQUIRE(data2.calcularDiferenca(data) == 2);
+}
