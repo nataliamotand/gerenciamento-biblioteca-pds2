@@ -83,3 +83,21 @@ TEST_CASE("Testa se o usuario consegue alterar o curso"){
     usuario.setCurso("Engenharia de Software");
     CHECK_EQ(usuario.getCurso(), "Engenharia de Software");
 }
+
+TEST_CASE("Testa set e get de dias de atraso"){
+    Usuario usuario = Usuario("João", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
+    usuario.setDiasAtraso(5);
+    CHECK_EQ(usuario.getDiasAtraso(), 5);
+}
+
+TEST_CASE("Testa set e get de multa"){
+    Usuario usuario = Usuario("João", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
+    usuario.setMulta(10);
+    CHECK_EQ(usuario.getMulta(), 10);
+}
+
+TEST_CASE("Testa set de ID estudantil"){
+    Usuario usuario = Usuario("João", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
+    usuario.setIdEstudantil("987654321");
+    CHECK_EQ(usuario.getIdEstudantil(), "987654321");
+}
