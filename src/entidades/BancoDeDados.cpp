@@ -1,11 +1,11 @@
 #include "BancoDeDados.hpp"
 
 BancoDeDados::BancoDeDados() {
-    Usuario* usuario1 = new Usuario("João Paulo", "joao@gmail.com", "1234", "Ciência da Computação", "123456789");
-    Usuario* usuario2 = new Usuario("Maria Flor", "maria@gmail.com", "1234", "Ciência da Computação", "987654321");
-    Usuario* usuario3 = new Usuario("José Carlos", "jose@gmail.com", "1234", "Sistemas de Informação", "123556779");
-    Usuario* usuario4 = new Usuario("Ana Paula", "ana@gmail.com", "1234", "Sistemas de Informação", "987556321");
-    Usuario* usuario5 = new Usuario("Pedro Souza", "pedro@gmail.com", "1234", "Matemática Computacional", "110456789");
+    Usuario* usuario1 = new Usuario("Luigi", "luigi@gmail.com", "1234", "Ciência da Computação", "123456789");
+    Usuario* usuario2 = new Usuario("Auanny", "auanny@gmail.com", "1234", "Ciência da Computação", "987654321");
+    Usuario* usuario3 = new Usuario("Paulo", "paulo@gmail.com", "1234", "Sistemas de Informação", "123556779");
+    Usuario* usuario4 = new Usuario("Vitoria", "vitoria@gmail.com", "1234", "Sistemas de Informação", "987556321");
+    Usuario* usuario5 = new Usuario("Natalia", "natalia@gmail.com", "1234", "Matemática Computacional", "110456789");
 
     usuario1->pegarLivroEmprestado(Livro("O Pequeno Príncipe", "Infantil", "Antoine de Saint-Exupéry", 1, true, "", "0011", "B1"), Data(1, 5, 2023));
     usuario2->pegarLivroEmprestado(Livro("A Menina que Roubava Livros", "Drama", "Markus Zusak", 1, true, "", "0012", "C1"), Data(2, 5, 2023));
