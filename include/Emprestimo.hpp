@@ -12,16 +12,20 @@ class Emprestimo {
         // <Livro, Data de empréstimo, Data de devolução>
         std::vector<std::map<Livro, std::map<Data, Data>>> livros;
         // dia(s) atrasado(s) e livro(s) atrasado(s)
-        std::vector<std::map<Livro*, int>> diasAtrasados;
+        std::vector<std::map<Livro, int>> diasAtrasados;
         // multa(s) e livro(s) atrasado(s)
-        std::vector<std::map<Livro*, float>> multa;
+        std::vector<std::map<Livro, float>> multa;
         const int diasPadraoEmprestimo = 14;
         const int maximoLivrosEmprestados = 2;
+        const int multaPorDia = 1;
 
     public:
         Emprestimo();
         std::vector<std::map<Livro, std::map<Data, Data>>> getLivros();
         int getDiasPadraoEmprestimo();
+        int getMaximoLivrosEmprestados();
+        float getMulta();
+        void calcularMulta(Data dataAtual);
         Data calcularDataDevolucao(Data dataEmprestimo);
         void adicionarLivro(Livro livro, Data dataEmprestimo);
         bool renovarLivro(std::string titulo, Data dataAtual);
