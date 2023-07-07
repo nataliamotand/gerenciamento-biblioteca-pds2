@@ -109,8 +109,10 @@ void Livro::setDataEmprestimo(Data dataEmprestimo){
 
 void Livro::emprestarLivro() {
     this->numCopias--;
+    this->disponibilidade = false;
 }
 
 void Livro::devolverLivro() {
     this->numCopias++;
+    this->disponibilidade = true;
 }
