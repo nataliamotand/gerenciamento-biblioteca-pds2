@@ -27,6 +27,8 @@ class CatalogoLivros {
         bool editarLivro(std::string titulo, std::string genero, std::string autor, int numCopias, std::string defeito, std::string endereco);
         Livro pesquisarLivro(std::string titulo);
         void imprimeTodosLivros();
+        bool livroEstaDisponivel(std::string titulo, std::string autor);
+        void emprestarLivro(std::string titulo, std::string autor, Data dataDevolucao);
 };
 
 #endif
