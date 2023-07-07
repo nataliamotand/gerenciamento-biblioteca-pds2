@@ -1,9 +1,9 @@
-#include "Administrador.hpp"
 #include "BancoDeDados.hpp"
 
 #include <iostream>
 
 BancoDeDados bancoDeDados = BancoDeDados();
+std::string emailLogado = "";
 
 bool loginAdministrador() {
     std::string email, senha;
@@ -26,6 +26,9 @@ bool loginUsuario() {
     std::cin>>senha;
 
     bool retorno = bancoDeDados.loginUsuario(email, senha);
+    if(retorno){
+        emailLogado = email;
+    }
     return retorno;
 }
 
@@ -190,6 +193,24 @@ void AdministradorGerenciarLivros(){
 
 }
 
+void AdministradorGerenciarEmprestimos(){
+    int escolha;
+    do{
+        std::cout << "1 - Ver histórico de atividades dos usuários" << std::endl;
+        std::cout << "2 - Sair" << std::endl;
+        std::cin >> escolha;
+        switch (escolha){
+            case 1:
+                bancoDeDados.imprimeHistoricoAtividadeUsuarios();
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
+    } while (escolha != 2);
+}
+
 void interfaceAdministrador(){
     int escolha;
     bool login = loginAdministrador();
@@ -208,7 +229,7 @@ void interfaceAdministrador(){
                     AdministradorGerenciarLivros();
                     break;
                 case 3:
-                    // AdministradorGerenciarEmprestimos();
+                    AdministradorGerenciarEmprestimos();
                     break;
                 case 4:
                     break;
@@ -237,9 +258,102 @@ void UsuarioPesquisarLivro(){
             std::cout << "Número de cópias disponíveis: " << livro.getNumCopias() << std::endl;
         }else{
             std::cout << "Livro indisponível" << std::endl;
-            // std::cout << "Data de devolução prevista: " << livro.getDataDevolucao() << std::endl;
+            Data data = livro.getDataDevolucao();
+            std::cout << "Data de devolução prevista: ";
+            data.imprimeData();
         }
     }
+}
+
+void UsuarioRealizarEmprestimo(){
+    std::string titulo, autor;
+    std::cout << "Digite o título do livro: ";
+    std::cin.ignore();
+    std::getline(std::cin, titulo);
+    std::cout << "Digite o autor do livro: ";
+    std::getline(std::cin, autor);
+    Livro livro = bancoDeDados.pesquisarLivro(titulo);
+    if(livro.getTitulo() == ""){
+        std::cout << "Nenhum livro encontrado" << std::endl;
+    }else{
+        if(livro.getDisponibilidade()){
+            std::cout << "Livro disponível" << std::endl;
+            std::cout << "Número de cópias disponíveis: " << livro.getNumCopias() << std::endl;
+            std::cout << "Deseja realizar o empréstimo? (1 - Sim, 2 - Não)" << std::endl;
+            int escolha;
+            std::cin >> escolha;
+            if(escolha == 1){
+                bool podeEmprestar = bancoDeDados.usuarioPodePegarLivroEmprestado(emailLogado);
+                if(podeEmprestar == false){
+                    std::cout << "Usuário não pode pegar mais livros emprestados" << std::endl;
+                    std::cout << "Limite máximo de 2 livros emprestados" << std::endl;
+                    return;
+                }
+                int retorno = bancoDeDados.emprestarLivro(titulo, autor, emailLogado);
+                if(retorno == true)
+                    std::cout << "Livro emprestado com sucesso" << std::endl;
+            }
+        }else{
+            std::cout << "Livro indisponível" << std::endl;
+        }
+    }
+}
+
+void UsuarioVisualizarLivrosEmprestados(){
+    std::vector<std::map<Livro, std::map<Data, Data>>> livros = bancoDeDados.visualizarLivrosEmprestados(emailLogado);
+    if(livros.size() == 0){
+        std::cout << "Nenhum livro emprestado no momento" << std::endl;
+    }else{
+        for(std::vector<std::map<Livro, std::map<Data, Data>>>::size_type i = 0; i < livros.size(); i++){
+            std::map<Livro, std::map<Data, Data>> livro = livros[i];
+            if(livro.empty()) {
+                continue;
+            }
+            std::map<Livro, std::map<Data, Data>>::iterator it;
+            for(it = livro.begin(); it != livro.end(); it++){
+                std::cout << "Título: " << it->first.getTitulo() << std::endl;
+                std::cout << "Data de empréstimo: " << const_cast<Data&>(it->second.begin()->first).getDia() << "/" <<
+                const_cast<Data&>(it->second.begin()->first).getMes() << "/" << const_cast<Data&>(it->second.begin()->first).getAno() << std::endl;
+                std::cout << "Data de devolução prevista: " << const_cast<Data&>(it->second.begin()->second).getDia() << "/" <<
+                const_cast<Data&>(it->second.begin()->second).getMes() << "/" << const_cast<Data&>(it->second.begin()->second).getAno() << std::endl;
+                std::cout << "------------------------------------------" << std::endl;
+            }
+        }
+    }
+}
+
+void UsuarioRenovarLivro(){
+    std::string titulo;
+    std::cout << "Digite o título do livro: ";
+    std::cin.ignore();
+    std::getline(std::cin, titulo);
+
+    std::vector<std::map<Livro, std::map<Data, Data>>> livros = bancoDeDados.visualizarLivrosEmprestados(emailLogado);
+    if(livros.size() == 0){
+        std::cout << "Nenhum livro emprestado no momento" << std::endl;
+    }
+    for(std::vector<std::map<Livro, std::map<Data, Data>>>::size_type i = 0; i < livros.size(); i++){
+            std::map<Livro, std::map<Data, Data>> livro = livros[i];
+            if(livro.empty()) {
+                continue;
+            }
+            std::map<Livro, std::map<Data, Data>>::iterator it;
+            for(it = livro.begin(); it != livro.end(); it++){
+                if(it->first.getTitulo() == titulo){
+                    std::cout << "Deseja renovar o empréstimo? (1 - Sim, 2 - Não)" << std::endl;
+                    int escolha;
+                    std::cin >> escolha;
+                    if(escolha == 1){
+                        int retorno = bancoDeDados.renovarLivro(titulo, emailLogado);
+                        if(retorno == true)
+                            std::cout << "Livro renovado com sucesso" << std::endl;
+                    }else{
+                        return;
+                    }
+                }
+            }
+    }
+
 }
 
 void interfaceUsuario(){
@@ -258,13 +372,13 @@ void interfaceUsuario(){
                     UsuarioPesquisarLivro();
                     break;
                 case 2:
-                    // UsuarioVisualizarLivros();
+                    UsuarioVisualizarLivrosEmprestados();
                     break;
                 case 3:
-                    // UsuarioRenovarLivro();
+                    UsuarioRenovarLivro();
                     break;
                 case 4:
-                    // UsuarioRealizarEmprestimo();
+                    UsuarioRealizarEmprestimo();
                     break;
                 case 5:
                     break;
